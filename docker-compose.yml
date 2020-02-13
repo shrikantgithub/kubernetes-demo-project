@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp-deployment-v1
+  lables:
+    app: demoapp-v1
+spec:
+  replicas: 3
+  selector:
+    matchLables:
+      app: demoapp-v1
+  template:
+    metadata:
+      name: demoapp-v1
+      lables:
+        app: demoapp-v1
+    spec:
+      containers:
+        - name: demoapp-v1
+          image: demoapp/v1
+          port:
+           - containerPort: 8080
+           
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp-service
+spec:
+  selector:
+    app: demoapp-deployment-v1
+  ports:
+       port: 8080
+       tragetPort: 8080
+  type: LoadBalancer 
+
+
+
+
+
+
