@@ -1,4 +1,4 @@
-package com.lowes.price.priceinterceptor;
+package com.demo.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

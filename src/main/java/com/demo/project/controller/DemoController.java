@@ -2,7 +2,7 @@
     Copyright (C) Lowe's Companies, Inc.  All rights reserved.
     This file is for internal use only at Lowe's Companies, Inc.
    ***************************************************************************/
-package com.lowes.price.priceinterceptor.controller;
+package com.demo.project.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
