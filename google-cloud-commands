@@ -15,3 +15,29 @@ docker tag image_name:tag gcr.io/PROJECT_ID/IMAGE_NAME:TAG
 gcloud docker push gcr.io/project_id/image_name:tag
 ========================================================================
 
+Command to login to the clusters
+=================================
+first set the project to work on using below command
+gcloud config set project PROJECT_ID
+
+Now run the below command to login into cluster
+gcloud container clusters get-credentials [cluster_name] --zone [zone_name]
+
+COMMAND TO CREATE DEPLOYMENT, POD AND SERVICE
+===============================================
+POD CREATION
+kubectl run kubernetes-demo --image=gcr.io/$GOOGLE_CLOUD_PROJECT/kubernetes-demo:v1 --port=8084
+
+DEPLOYMENT CREATION
+kubectl create deployment kubernetes-demo --image=gcr.io/$GOOGLE_CLOUD_PROJECT/kubernetes-demo:v1
+
+SERVICE CREATION
+kubectl expose deployment kubernetes-demo --type=LoadBalancer --port=8084
+
+SCALING DEPLOYMENT
+kubectl scale deployment kubernetes-demo --replicas=3
+
+kubectl delete pod/deployment/service
+kubectl get pods/deployments/services
+
+
