@@ -40,4 +40,14 @@ kubectl scale deployment kubernetes-demo --replicas=3
 kubectl delete pod/deployment/service
 kubectl get pods/deployments/services
 
+RUN BELOW COMMANDS TO SEE THE LOGS OF A PARTICULAR POD
+======================================================
+kubectl logs pod_name
 
+USE BELOW PORTAL TO CREATE YML FILE FOR KUBERNETES DEPLOYMENT
+===================================================================
+https://static.brandonpotter.com/kubernetes/DeploymentBuilder.html
+
+COMMANDS TO CREATE DEPLOYMENT/SERVICE USING YML FILE
+====================================================
+kubctl apply -f file_name
