@@ -1,0 +1,17 @@
+command to build and push images to container registry inside kubernetes
+========================================================================
+DOCKER TAG IMAGE_NAME:TAG GCR.IO/PROJECT_ID/IMAGE_NAME:TAG
+
+docker tag kubernetes-demo:v1 gcr.io/java-projects-277411/kubernetes-demo:v1
+docker push gcr.io/java-projects-277411/kubernetes-demo:v1
+OR
+.mvnw com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/Project_Id/Image_Name:TAG
+
+From Local System: how to push image to gcr
+============================================
+first login to gcloud tools using gcloud auth and then run below commands
+
+docker tag image_name:tag gcr.io/PROJECT_ID/IMAGE_NAME:TAG
+gcloud docker push gcr.io/project_id/image_name:tag
+========================================================================
+
