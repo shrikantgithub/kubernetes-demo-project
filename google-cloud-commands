@@ -39,6 +39,9 @@ kubectl scale deployment kubernetes-demo --replicas=3
 
 kubectl delete pod/deployment/service
 kubectl get pods/deployments/services
+For namespace
+kubectl get pods --all-namespaces
+kubectl get pods -n price
 
 RUN BELOW COMMANDS TO SEE THE LOGS OF A PARTICULAR POD
 ======================================================
@@ -51,3 +54,7 @@ https://static.brandonpotter.com/kubernetes/DeploymentBuilder.html
 COMMANDS TO CREATE DEPLOYMENT/SERVICE USING YML FILE
 ====================================================
 kubctl apply -f file_name
+
+Command to go to running container shell
+==========================================
+kubectl exec -it price-stage-v012-rxrfw -c gcp-ushi-carbon-svcs-dev-global-price -n price -- /bin/bash
