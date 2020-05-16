@@ -57,4 +57,4 @@ kubctl apply -f file_name
 
 Command to go to running container shell
 ==========================================
-kubectl exec -it price-stage-v012-rxrfw -c gcp-ushi-carbon-svcs-dev-global-price -n price -- /bin/bash
+kubectl exec -it price-stage-v012-rxrfw -c gcp-ushi-carbon-svcs-dev-global-price -n price -- /bin/sh
