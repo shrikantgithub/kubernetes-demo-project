@@ -1,0 +1,67 @@
+package com.example.demo;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class FileMatch {
+
+	public static void main(String[] args) {
+		String inputFilePath = null;
+		String outputFolderPath = null;
+		String header = null;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Pls enter input file path:: ");
+		inputFilePath = sc.nextLine();
+		System.out.print("Pls enter output folder path:: ");
+		outputFolderPath = sc.nextLine();
+		System.out.print("Pls wait data is being processed:: ");
+		String outputFilePath = outputFolderPath + File.separator + "Output.csv";
+		try(Scanner fileScanner = new Scanner(new File(inputFilePath));
+				FileWriter writer = new FileWriter(outputFilePath); 
+				BufferedWriter out = new BufferedWriter(writer);) {
+			
+			//skipping header record
+			if(fileScanner.hasNextLine()) {
+				header = fileScanner.nextLine();
+				out.write(header);
+				out.newLine();
+			}
+			String record;
+			String[] columns = null;
+			List<String> firstColumnList = new ArrayList<>(500);
+			List<String> secondColumnList = new ArrayList<>(500);
+			while(fileScanner.hasNextLine()) {
+				record = fileScanner.nextLine();
+				columns = record.split(",");
+				firstColumnList.add(columns[0]);
+				secondColumnList.add(columns[1]);
+			}
+			//Now compare data
+			String[] words = null;
+			for (String secondColumn : secondColumnList) {
+				words = secondColumn.split(" ");
+				for (String firstColumn : firstColumnList) {
+					boolean flag = true;
+					for (String word : words) {
+						if (!firstColumn.trim().toLowerCase().contains(word.trim().toLowerCase())) {
+							flag = false;
+						}
+					}
+					if(flag && firstColumn.split(" ").length != secondColumn.split(" ").length) {
+						out.write(firstColumn + "," + secondColumn);
+						out.newLine();
+					}
+				}
+			}
+			System.out.println("Data is processed. Pls check the file generatd at given path");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			sc.close();
+		}
+	}
+}
