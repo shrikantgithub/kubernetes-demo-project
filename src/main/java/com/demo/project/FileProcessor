@@ -50,18 +50,18 @@ public class FileMatch {
 			}
 			//Now compare data
 			String[] words = null;
-			for (String secondColumn : secondColumnList) {
-				words = secondColumn.split(" ");
-				for (String firstColumn : firstColumnList) {
+			for (String firstColumn : firstColumnList) {
+				words = firstColumn.split(" ");
+				for (String secondColumn : secondColumnList) {
 					boolean flag = true;
 					for (String word : words) {
 						if(word.equalsIgnoreCase("database") || word.equalsIgnoreCase("db")) {
-							if(!(firstColumn.trim().toLowerCase().contains("database")
-									|| firstColumn.trim().toLowerCase().contains("db"))) {
+							if(!(secondColumn.trim().toLowerCase().contains("database")
+									|| secondColumn.trim().toLowerCase().contains("db"))) {
 								flag = false;
 								break;
 							}
-						}else if (!firstColumn.trim().toLowerCase().contains(word.trim().toLowerCase())) {
+						}else if (!secondColumn.trim().toLowerCase().contains(word.trim().toLowerCase())) {
 							flag = false;
 							break;
 						}
