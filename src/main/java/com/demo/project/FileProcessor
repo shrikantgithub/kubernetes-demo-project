@@ -38,8 +38,8 @@ public class FileMatch {
 			String[] columns = null;
 			List<String> firstColumnList = new ArrayList<>(500);
 			List<String> secondColumnList = new ArrayList<>(500);
-			Map<String, String> source = new HashMap<>();
-			Map<String, String> target = new HashMap<>();
+			Map<String, String> source = new HashMap<>(500);
+			Map<String, String> target = new HashMap<>(500);
 			while(fileScanner.hasNextLine()) {
 				record = fileScanner.nextLine();
 				columns = record.split(",");
