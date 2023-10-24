@@ -4,10 +4,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileMatch {
+	
+	private static final String COMMA = ",";
 
 	public static void main(String[] args) {
 		String inputFilePath = null;
@@ -34,11 +38,15 @@ public class FileMatch {
 			String[] columns = null;
 			List<String> firstColumnList = new ArrayList<>(500);
 			List<String> secondColumnList = new ArrayList<>(500);
+			Map<String, String> source = new HashMap<>();
+			Map<String, String> target = new HashMap<>();
 			while(fileScanner.hasNextLine()) {
 				record = fileScanner.nextLine();
 				columns = record.split(",");
-				firstColumnList.add(columns[0]);
-				secondColumnList.add(columns[1]);
+				firstColumnList.add(columns[6]);
+				source.put(columns[6], columns[0] + COMMA + columns[1]  + COMMA + columns[2] + COMMA +  columns[3] + COMMA + columns[4]+ COMMA +  columns[5] + COMMA + columns[6]);
+				secondColumnList.add(columns[7]);
+				target.put(columns[7], columns[7] + COMMA + columns[8]);
 			}
 			//Now compare data
 			String[] words = null;
@@ -47,17 +55,24 @@ public class FileMatch {
 				for (String firstColumn : firstColumnList) {
 					boolean flag = true;
 					for (String word : words) {
-						if (!firstColumn.trim().toLowerCase().contains(word.trim().toLowerCase())) {
+						if(word.equalsIgnoreCase("database") || word.equalsIgnoreCase("db")) {
+							if(!(firstColumn.trim().toLowerCase().contains("database")
+									|| firstColumn.trim().toLowerCase().contains("db"))) {
+								flag = false;
+								break;
+							}
+						}else if (!firstColumn.trim().toLowerCase().contains(word.trim().toLowerCase())) {
 							flag = false;
+							break;
 						}
 					}
-					if(flag && firstColumn.split(" ").length != secondColumn.split(" ").length) {
-						out.write(firstColumn + "," + secondColumn);
+					if(flag) {
+						out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
 						out.newLine();
 					}
 				}
 			}
-			System.out.println("Data is processed. Pls check the file generatd at given path");
+			System.out.println("\n Data is processed. Pls check the file generatd at given path");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
