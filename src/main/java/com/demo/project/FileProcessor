@@ -58,11 +58,6 @@ public class FileMatch {
 					secondColumnWords = Arrays.asList(secondColumn.trim().toLowerCase().split(" "));
 					boolean flag = true;
 					for (String word : words) {
-						
-						if(word.equalsIgnoreCase("IR")) {
-							System.out.println("debug");
-						}
-						
 						if(word.trim().isEmpty()) {
 							flag = false;
 							continue;
