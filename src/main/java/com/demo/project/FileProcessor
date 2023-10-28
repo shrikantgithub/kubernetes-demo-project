@@ -25,6 +25,7 @@ public class FileMatch {
 		outputFolderPath = sc.nextLine();
 		System.out.print("Pls wait data is being processed:: ");
 		String outputFilePath = outputFolderPath + File.separator + "Output.csv";
+		String record = null;
 		try(Scanner fileScanner = new Scanner(new File(inputFilePath));
 				FileWriter writer = new FileWriter(outputFilePath); 
 				BufferedWriter out = new BufferedWriter(writer);) {
@@ -35,7 +36,6 @@ public class FileMatch {
 				out.write(header);
 				out.newLine();
 			}
-			String record;
 			String[] columns = null;
 			List<String> firstColumnList = new ArrayList<>(500);
 			List<String> secondColumnList = new ArrayList<>(500);
@@ -44,6 +44,7 @@ public class FileMatch {
 			List<String> secondColumnWords = null;
 			while(fileScanner.hasNextLine()) {
 				record = fileScanner.nextLine();
+				System.out.println("record: " + record);
 				columns = record.split(",");
 				firstColumnList.add(columns[6]);
 				source.put(columns[6], columns[0] + COMMA + columns[1]  + COMMA + columns[2] + COMMA +  columns[3] + COMMA + columns[4]+ COMMA +  columns[5] + COMMA + columns[6]);
@@ -74,13 +75,22 @@ public class FileMatch {
 						}
 					}
 					if(flag) {
-						out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
-						out.newLine();
+						boolean IRFlag = firstColumn.contains("IR") && secondColumn.contains("IR");
+						if(firstColumn.contains("IR") || secondColumn.contains("IR")) {
+							if(IRFlag) {
+								out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
+								out.newLine();
+							}
+						}else {
+							out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
+							out.newLine();
+						}
 					}
 				}
 			}
 			System.out.println("\n Data is processed. Pls check the file generatd at given path");
 		}catch(Exception e) {
+			System.out.println("error record: " + record);
 			e.printStackTrace();
 		}finally {
 			sc.close();
