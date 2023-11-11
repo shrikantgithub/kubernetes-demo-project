@@ -24,7 +24,7 @@ public class FileMatch {
 		System.out.print("Pls enter output folder path:: ");
 		outputFolderPath = sc.nextLine();
 		System.out.print("Pls wait data is being processed:: ");
-		String outputFilePath = outputFolderPath + File.separator + "Output.csv";
+		String outputFilePath = outputFolderPath + File.separator + "Output1.csv";
 		String record = null;
 		try(Scanner fileScanner = new Scanner(new File(inputFilePath));
 				FileWriter writer = new FileWriter(outputFilePath); 
@@ -56,12 +56,6 @@ public class FileMatch {
 			for (String firstColumn : firstColumnList) {
 				words = firstColumn.split(" ");
 				for (String secondColumn : secondColumnList) {
-					if(secondColumn.contains("IMV") || secondColumn.contains("Interim Monitoring Visit")) {
-						if(secondColumn.equalsIgnoreCase(firstColumn)) {
-							out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
-							break;
-						}
-					}
 					secondColumnWords = Arrays.asList(secondColumn.trim().toLowerCase().split(" "));
 					boolean flag = true;
 					for (String word : words) {
@@ -88,8 +82,15 @@ public class FileMatch {
 								out.newLine();
 							}
 						}else {
-							out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
-							out.newLine();
+							if(secondColumn.contains("COV") || secondColumn.contains("IMV") || secondColumn.contains("Interim Monitoring Visit")) {
+								if(secondColumn.equalsIgnoreCase(firstColumn)) {
+									out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
+									out.newLine();
+								}
+							}else {
+								out.write(source.get(firstColumn) + COMMA + target.get(secondColumn));
+								out.newLine();
+							}
 						}
 					}
 				}
